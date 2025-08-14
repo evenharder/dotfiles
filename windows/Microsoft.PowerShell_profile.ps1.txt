@@ -1,0 +1,9 @@
+function Send-PubKey {
+  type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh -v $args[0] "cat >> .ssh/authorized_keys"
+}
+
+# X11 forwarding
+$env:DISPLAY="127.0.0.1:0.0"
+
+function fn_xssh { ssh -Y $args }
+Set-Alias xssh fn_xssh

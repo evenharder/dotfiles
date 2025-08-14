@@ -1,0 +1,23 @@
+#!/bin/bash
+
+CLION_PATH=/opt/clion/bin/clion.sh
+if [ ! -f "${CLION_PATH}" ]; then
+  alias clion=/opt/clion/bin/clion.sh
+fi
+
+alias python3=python
+
+if type -a p4 &>/dev/null; then
+  p4d() {
+    p4 describe -s "$1" | grep -v '\.\.\.'
+  }
+
+  p4s() {
+    if [ -z "$1" ]; then
+      echo "usage: p4s [CL_NUMBER]"
+    else
+      git p4 unshelve "$1"
+      git checkout "p4-unshelved/$1"
+    fi
+  }
+fi

@@ -1,0 +1,20 @@
+#!/bin/bash
+# User specific environment
+if ! [[ "$PATH" =~ $HOME/.local/bin:$HOME/bin: ]]; then
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+
+P4_DIR=/opt/perforce/bin
+if [ -d "${P4_DIR}" ]; then
+  PATH=/opt/perforce/bin:$PATH
+fi
+
+P4V_DIR=/opt/p4v/bin
+if [ -d "${P4V_DIR}" ]; then
+  PATH=/opt/p4v/bin:$PATH
+fi
+
+CLION_DIR=/opt/clion/bin
+if [ -d "${CLION_DIR}" ]; then
+  PATH=/opt/clion/bin:$PATH
+fi

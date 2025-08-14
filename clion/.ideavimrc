@@ -1,0 +1,252 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+" Basic setup inspired by https://github.com/JetBrains/ideavim/discussions/303?sort=new#discussioncomment-7664118
+
+" WARN: this file is stale, as I am using neovim instead of CLion
+
+" vim settings
+set scrolloff=5
+set history=1000
+set number relativenumber
+
+" status bar
+set showmode
+
+" find and replace
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+
+" ideavim settings
+set ideajoin
+set ideamarks
+set idearefactormode=normal
+set ideastatusicon=gray
+
+" silent
+set visualbell
+set noerrorbells
+
+" clipboard
+set clipboard+=unnamed
+
+" leader
+let mapleader=" "
+
+" minimal porting of LazyVim keymaps (https://www.lazyvim.org/keymaps)
+
+" general
+nmap <C-h> <C-w>h
+tmap <C-h> <C-w>h
+let g:WhichKeyDesc_window_move_left = "<C-h> Go to left window"
+nmap <C-j> <C-w>j
+tmap <C-j> <C-w>j
+let g:WhichKeyDesc_window_move_down = "<C-j> Go to lower window"
+nmap <C-k> <C-w>k
+tmap <C-k> <C-w>k
+let g:WhichKeyDesc_window_move_up = "<C-k> Go to upper window"
+nmap <C-l> <C-w>l
+tmap <C-l> <C-w>l
+let g:WhichKeyDesc_window_move_right = "<C-l> Go to right window"
+
+nmap <C-Up> <Action>(IncreaseWindowHeight)
+let g:WhichKeyDesc_windows_IncreaseWindowHeight = "<C-Up> Increase window height"
+nmap <C-Down> <Action>(DecreaseWindowHeight)
+let g:WhichKeyDesc_windows_DecreaseWindowHeight = "<C-Down> decrease window height"
+nmap <C-Right> <Action>(IncreaseWindowWidth)
+let g:WhichKeyDesc_windows_IncreaseWindowWidth = "<C-Right> Increase window width"
+nmap <C-Left> <Action>(DecreaseWindowWidth)
+let g:WhichKeyDesc_windows_DecreaseWindowWidth = "<C-Left> Decrease window width"
+
+nmap H <Action>(PreviousTab)
+let g:WhichKeyDesc_buffer_PreviousTab = "H Prev buffer"
+nmap L <Action>(NextTab)
+let g:WhichKeyDesc_buffer_NextTab = "L Next buffer"
+nmap [b <Action>(PreviousTab)
+let g:WhichKeyDesc_buffer_PreviousTab = "[b Prev buffer"
+nmap ]b <Action>(NextTab)
+let g:WhichKeyDesc_buffer_NextTab = "]b Next buffer"
+
+nmap <esc> :nohls<CR>
+let g:WhichKeyDesc_esc = "<Escape> Clear screen"
+
+imap <C-s> <Action>(SaveAll)
+xmap <C-s> <Action>(SaveAll)
+nmap <C-s> <Action>(SaveAll)
+smap <C-s> <Action>(SaveAll)
+let g:WhichKeyDesc_SaveAll = "<C-s> Save file"
+
+let g:WhichKeyDesc_code = "<leader>c +code"
+nmap <leader>cf <Action>(ReformatCode)
+vmap <leader>cf <Action>(ReformatCode)
+let g:WhichKeyDesc_ReformatCode = "<leader>cf Reformat code"
+
+let g:WhichKeyDesc_prev = "[ +prev"
+let g:WhichKeyDesc_next = "] +next"
+nmap [e <Action>(GotoPreviousError)
+let g:WhichKeyDesc_error_GotoPreviousError = "[e Prev error"
+nmap ]e <Action>(GotoNextError)
+let g:WhichKeyDesc_error_GotoNextError = "]e Next error"
+
+let g:WhichKeyDesc_toggle = "<leader>u +toggle"
+nmap <leader>uw <Action>(EditorToggleUseSoftWraps)
+let g:WhichKeyDesc_toggle_EditorToggleUseSoftWraps = "<leader>uw Toggle soft wraps"
+nmap <leader>ul <Action>(EditorToggleShowLineNumbers)
+let g:WhichKeyDesc_toggle_EditorToggleShowLineNumbers = "<leader>ul Toggle line numbers"
+
+let g:WhichKeyDesc_quit = "<leader>q +quit/session"
+nmap <leader>qq <Action>(Exit)
+let g:WhichKeyDesc_Exit = "<leader>qq Quit all"
+
+let g:WhichKeyDesc_find_file = "<leader>f +file/find"
+nmap <leader>ft <Action>(Terminal.OpenInTerminal)
+let g:WhichKeyDesc_open_term = "<leader>ft Terminal"
+
+nmap <leader>- <Action>(SplitHorizontally)
+let g:WhichKeyDesc_split_SplitHorizontally = "<leader>- Split window below"
+nmap <leader>| <Action>(SplitVertically)
+let g:WhichKeyDesc_split_SplitVertically = "<leader>| Split window right"
+
+nmap <leader>K <Action>(QuickJavaDoc)
+let g:WhichKeyDesc_Hover = "<leader>K Hover"
+
+" lsp (goto)
+let g:WhichKeyDesc_code = "<leader>c +code"
+nmap <leader>ca <Action>(GotoAction)
+vmap <leader>ca <Action>(GotoAction)
+let g:WhichKeyDesc_code_GotoAction = "<leader>ca Code action"
+nmap <leader>cr <Action>(RenameElement)
+let g:WhichKeyDesc_code_RenameElement = "<leader>cr Rename"
+nmap <leader>cu <Action>(FindUsages)
+let g:WhichKeyDesc_code_FindUsages = "<leader>cu FindUsages"
+
+let g:WhichKeyDesc_goto = "g +goto"
+nmap gd <Action>(GotoDefinition)
+let g:WhichKeyDesc_goto_GotoDefinition = "gd Goto definition"
+nmap gD <Action>(GotoDeclaration)
+let g:WhichKeyDesc_goto_GotoDeclaration = "gD Goto declaration"
+nmap gy <Action>(GotoTypeDeclaration)
+let g:WhichKeyDesc_goto_GotoTypeDeclaration = "gy Goto T[y]pe definition"
+nmap gI <Action>(GotoImplementation)
+let g:WhichKeyDesc_goto_GotoImplementation = "gI Goto implementation"
+
+" menu
+let g:WhichKeyDesc_menu = "<leader>m +menu"
+map <leader>mm <Action>(MainMenu)
+let g:WhichKeyDesc_menu_MainMenu = "<leader>mm Pop-up MainMenu"
+map <leader>mb <Action>(BuildMenu)
+let g:WhichKeyDesc_menu_BuildMenu = "<leader>mb Pop-up BuildMenu"
+map <leader>mc <Action>(CodeMenu)
+let g:WhichKeyDesc_menu_CodeMenu = "<leader>mc Pop-up CodeMenu"
+map <leader>mf <Action>(FindMenuGroup)
+let g:WhichKeyDesc_menu_FindMenuGroup = "<leader>mf Pop-up FindMenuGroup"
+map <leader>mg <Action>(GoToMenu)
+let g:WhichKeyDesc_menu_GoToMenu = "<leader>mg Pop-up GoToMenu"
+map <leader>ms <Action>(ScopeViewPopupMenu)
+let g:WhichKeyDesc_menu_ScopeViewPopupMenu = "<leader>ms Pop-up ScopeViewPopupMenu"
+map <leader>mt <Action>(EditorTabPopupMenu)
+let g:WhichKeyDesc_menu_EditorTabPopupMenu = "<leader>mt Pop-up EditorTabPopupMenu"
+map <leader>mw <Action>(ToolWindowsGroup)
+let g:WhichKeyDesc_menu_ToolWindowsGroup = "<leader>mw Pop-up ToolWindowsGroup"
+
+" bufferline.nvim
+let g:WhichKeyDesc_buffer = "<leader>b +buffer"
+nmap <leader>bl <Action>(CloseAllToTheLeft)
+let g:WhichKeyDesc_buffer_CloseAllToTheLeft = "<leader>bl Delete buffers to the left"
+nmap <leader>bo <Action>(CloseAllEditorsButActive)
+let g:WhichKeyDesc_buffer_CloseAllEditorsButActive = "<leader>bo Delete other buffers"
+nmap <leader>bp <Action>(PinActiveEditorTab)
+let g:WhichKeyDesc_buffer_PinActiveEditorTab = "<leader>bp Toggle pin"
+nmap <leader>bP <Action>(CloseAllUnpinnedEditors)
+let g:WhichKeyDesc_buffer_CloseAllUnpinnedEditors = "<leader>bP Delete non-pinned buffers"
+nmap <leader>br <Action>(CloseAllToTheRight)
+let g:WhichKeyDesc_buffer_CloseAllToTheRight = "<leader>br Delete buffers to the right"
+
+" mini.bufremove
+nmap <leader>bd <Action>(CloseContent)
+let g:WhichKeyDesc_buffer_CloseContent = "<leader>bd Delete buffer"
+
+" telescope.nvim
+nmap <leader><leader> <Action>(SearchEverywhere)
+let g:WhichKeyDesc_leader_leader = "<leader><leader> Find files"
+nmap <leader>fr <Action>(RecentFiles)
+let g:WhichKeyDesc_file_RecentFiles = "<leader>fr Recent"
+
+" below are again adopted from the aforementioned post
+
+" misc - comments
+nmap <leader>cc <Action>(CommentByLineComment)
+let g:WhichKeyDesc_code_CommentByLineComment = "<leader>cc Comment (line)"
+nmap <leader>cC <Action>(CommentByBlockComment)
+let g:WhichKeyDesc_code_CommentByBlockComment = "<leader>cc Comment (block)"
+
+" run
+let g:WhichKeyDesc_run = "<leader>r +run"
+nmap <leader>rc <Action>(ContextRun)
+let g:WhichKeyDesc_run_ContextRun = "<leader>rc Run"
+nmap <leader>rx <Action>(chooseRunConfiguration)
+let g:WhichKeyDesc_run_chooseRunConfiguration = "<leader>rx Choose run config"
+nmap <leader>rr <Action>(Rerun)
+let g:WhichKeyDesc_run_Rerun = "<leader>rr Rerun"
+nmap <leader>rt <Action>(RunTests)
+let g:WhichKeyDesc_run_RunTests = "<leader>rt Run tests"
+nmap <leader>rs <Action>(Stop)
+let g:WhichKeyDesc_run_Stop = "<leader>rs Stop"
+nmap <leader>rb <Action>(Build)
+let g:WhichKeyDesc_run_Build = "<leader>rb Build"
+nmap <leader>rB <Action>(Rebuild)
+let g:WhichKeyDesc_run_Rebuild = "<leader>rb Rebuild"
+
+" debug
+let g:WhichKeyDesc_debug = "<leader>d +debug"
+nmap <leader>dc <Action>(ContextDebug)
+let g:WhichKeyDesc_debug_ContextDebug = "<leader>dc Debug (context)"
+nmap <leader>dx <Action>(Debug)
+let g:WhichKeyDesc_debug_Debug = "<leader>dx Debug"
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+let g:WhichKeyDesc_debug_ToggleLineBreakpoint = "<leader>db Toggle breakpoint"
+nmap <leader>de <Action>(EditBreakpoint)
+let g:WhichKeyDesc_debug_EditBreakpoint = "<leader>de Edit breakpoint"
+nmap <leader>dv <Action>(ViewBreakpoints)
+let g:WhichKeyDesc_debug_ViewBreakpoints = "<leader>dv View breakpoint"
+
+" vcs
+let g:WhichKeyDesc_vcs = "<leader>v +vcs"
+nmap <leader>va <Action>(Annotate)
+let g:WhichKeyDesc_vcs_Annotate = "<leader>va Annotate"
+
+" nphy specific
+set g:WhichKeyDesc_cmake = "<leader>cm +cmake"
+nmap <leader>cmr <Action>(CMake.ReloadCMakeProject)
+nmap <leader>cms <Action>(CMake.OpenSettings)
+" plugins
+
+" highlight yank (bundle plugin)
+set highlightedyank
+let g:highlightedyank_highlight_duration = "1000"
+let g:highlightedyank_highlight_color = "rgba(57, 197, 187, 155)"
+
+" surround (bundle plugin)
+" usage: https://github.com/tpope/vim-surround
+set surround
+let g:WhichKeyDesc_surround = "<leader>y +surround"
+
+" exchange (bundle plugin)
+" usage: https://github.com/tommcdo/vim-exchange
+set exchange
+
+" nerdtree (bundle plugin)
+set NERDTree
+
+" replace with register (bundle plugin)
+" usage: https://github.com/vim-scripts/ReplaceWithRegister
+set ReplaceWithRegister
+
+" which-key (required idea plugin: Which-Key)
+set which-key
+set notimeout

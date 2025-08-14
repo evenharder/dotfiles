@@ -1,0 +1,10 @@
+customCommands:
+  - key: '<c-u>'
+    context: 'global'
+    command: 'git stash --include-untracked; git p4 rebase'
+    description: 'git-p4 rebase'
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+
