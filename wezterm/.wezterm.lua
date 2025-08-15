@@ -3,9 +3,10 @@ local act = wezterm.action
 local config = {}
 local launch_menu = {}
 
-config.font = wezterm.font("Fantasque Sans Mono")
+config.font = wezterm.font("FantasqueSansM Nerd Font Mono")
 config.font_size = 10.0
 config.cell_width = 1
+config.line_height = 1.1
 config.color_scheme = "flexoki-dark"
 config.enable_wayland = false -- X11?
 config.check_for_updates = true
@@ -122,4 +123,3 @@ for i = 1, 8 do
 end
 
 return config
-
