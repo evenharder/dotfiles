@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Managed tool list lives in .chezmoidata.yaml (tools:). This script's
+# rendered content changes whenever that list changes, which is what makes
+# chezmoi re-run it on the next apply.
+TOOLS=({{ .tools | join " " }})
+
+install_via_brew() {
+  echo "[chezmoi] Ensuring tools via brew: ${TOOLS[*]}"
+  brew install "${TOOLS[@]}"
+}
+
+{{- if eq .chezmoi.os "linux" }}
+install_via_apt() {
+  echo "[chezmoi] brew not found; falling back to apt for available packages"
+  sudo apt-get update -y
+  for tool in "${TOOLS[@]}"; do
+    sudo apt-get install -y "$tool" || echo "[chezmoi] '$tool' not available via apt; consider installing Homebrew (https://brew.sh) for full coverage"
+  done
+}
+{{- end }}
+
+if command -v brew >/dev/null 2>&1; then
+  install_via_brew
+{{- if eq .chezmoi.os "linux" }}
+elif command -v apt-get >/dev/null 2>&1; then
+  install_via_apt
+{{- end }}
+else
+  echo "[chezmoi] No supported package manager found. Install manually: ${TOOLS[*]}"
+fi

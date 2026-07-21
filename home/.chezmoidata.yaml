@@ -1,0 +1,7 @@
+tools:
+  - fzf
+  - lazygit
+  - neovim
+  - ripgrep
+  - git-delta
+  - htop
