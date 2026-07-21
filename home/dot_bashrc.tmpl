@@ -1,24 +1,15 @@
-# shellcheck disable=SC2209 # modules_shell holds a literal shell name, not a command
-case "$0" in
--sh | sh | */sh) modules_shell=sh ;;
--ksh | ksh | */ksh) modules_shell=ksh ;;
--zsh | zsh | */zsh) modules_shell=zsh ;;
--bash | bash | */bash) modules_shell=bash ;;
-esac
-module() { eval "$(/usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl "$modules_shell" "$*")"; }
-
 # Source global definitions
-if [ "$modules_shell" = "zsh" ] && [ -f /etc/zshrc ]; then
-  # shellcheck disable=SC1091
-  . /etc/zshrc
-elif [ "$modules_shell" = "bash" ] && [ -f /etc/bashrc ]; then
-  # shellcheck disable=SC1091
-  . /etc/bashrc
-fi
+# shellcheck disable=SC1091
+[ -f /etc/bashrc ] && . /etc/bashrc
 
 TERM=screen-256color
 
 alias ls='ls --color'
+
+# User specific environment
+if [[ ! "$PATH" =~ $HOME/.local/bin:$HOME/bin: ]]; then
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
 
 export PATH
 
