@@ -1,7 +1,13 @@
 tools:
-  - fzf
-  - lazygit
-  - neovim
-  - ripgrep
-  - git-delta
-  - htop
+  - formula: fzf
+    bin: fzf
+  - formula: lazygit
+    bin: lazygit
+  - formula: neovim
+    bin: nvim
+  - formula: ripgrep
+    bin: rg
+  - formula: git-delta
+    bin: delta
+  - formula: htop
+    bin: htop

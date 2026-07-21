@@ -19,7 +19,13 @@ check_install() {
 
 # check good-to-have binaries
 echo -e "[+] check if well-used binaries are installed..."
-REQ_BIN=(brew tmux g++ rustc git python3 clangd make cmake gdb gcc fzf docker htop luajit uv vim nvim ripgrep typst delta)
-mapfile -t REQ_LIST <<<"$(printf "%s\n" "${REQ_BIN[@]}" | sort)"
+
+# broader dev toolchain, not managed by the chezmoi bootstrap script
+REQ_BIN=(brew tmux g++ rustc git python3 clangd make cmake gdb gcc docker luajit uv vim typst)
+
+# tools bootstrapped by run_onchange_install-tools.sh (see .chezmoidata.yaml)
+REQ_BIN+=({{ range .tools }}{{ .bin }} {{ end }})
+
+mapfile -t REQ_LIST <<<"$(printf "%s\n" "${REQ_BIN[@]}" | sort -u)"
 
 check_install "${REQ_LIST[@]}"

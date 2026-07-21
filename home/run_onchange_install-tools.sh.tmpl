@@ -4,7 +4,7 @@ set -euo pipefail
 # Managed tool list lives in .chezmoidata.yaml (tools:). This script's
 # rendered content changes whenever that list changes, which is what makes
 # chezmoi re-run it on the next apply.
-TOOLS=({{ .tools | join " " }})
+TOOLS=({{ range .tools }}{{ .formula }} {{ end }})
 
 install_via_brew() {
   echo "[chezmoi] Ensuring tools via brew: ${TOOLS[*]}"
