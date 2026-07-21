@@ -1,26 +1,22 @@
+# shellcheck disable=SC2209 # modules_shell holds a literal shell name, not a command
 case "$0" in
 -sh | sh | */sh) modules_shell=sh ;;
 -ksh | ksh | */ksh) modules_shell=ksh ;;
 -zsh | zsh | */zsh) modules_shell=zsh ;;
 -bash | bash | */bash) modules_shell=bash ;;
 esac
-module() { eval $(/usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl "$modules_shell" "$*"); }
+module() { eval "$(/usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl "$modules_shell" "$*")"; }
 
 # Source global definitions
-if [ $modules_shell = "zsh" ] && [ -f /etc/zshrc ]; then
+if [ "$modules_shell" = "zsh" ] && [ -f /etc/zshrc ]; then
+  # shellcheck disable=SC1091
   . /etc/zshrc
-elif [ $modules_shell = "bash" ] && [ -f /etc/bashrc ]; then
+elif [ "$modules_shell" = "bash" ] && [ -f /etc/bashrc ]; then
+  # shellcheck disable=SC1091
   . /etc/bashrc
 fi
 
-CUR_PATH="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 TERM=screen-256color
-
-# for script in "${CUR_PATH}"/bash/.*; do
-#   if [ -f "${script}" ]; then
-#     . "${script}"
-#   fi
-# done
 
 alias ls='ls --color'
 
@@ -30,8 +26,10 @@ export PATH
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
+# shellcheck disable=SC2034
 force_color_prompt=yes
 
+# shellcheck disable=SC1091
 [ -f ~/.fzf.bash ] && source "$HOME/.fzf.bash"
 
 if type -a fzf &>/dev/null; then
@@ -45,4 +43,5 @@ fi
 [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{- end }}
 
+# shellcheck disable=SC1091
 [ -f ~/.cargo/env ] && source "$HOME/.cargo/env"
