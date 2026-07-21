@@ -1,0 +1,51 @@
+# Keep oh-my-zsh and zinit under ZDOTDIR when set, so a session-only
+# `ZDOTDIR=<live-dir> zsh` toggle never touches the real $HOME.
+export ZSH="${ZDOTDIR:-$HOME}/.oh-my-zsh"
+if [ ! -d "$ZSH" ]; then
+  git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$ZSH"
+fi
+
+ZSH_THEME="robbyrussell"
+plugins=(git)
+DISABLE_AUTO_TITLE="true"
+
+# shellcheck disable=all
+source "$ZSH/oh-my-zsh.sh"
+
+PROMPT="%{$fg[magenta]%}root@%{$fg[blue]%}%m%{$reset_color%} ${PROMPT}"
+
+ZINIT_HOME="${ZDOTDIR:-$HOME}/.local/share/zinit/zinit.git"
+if [ ! -d "$ZINIT_HOME/.git" ]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+  git clone --depth=1 https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+TERM=screen-256color
+
+alias ls='ls --color'
+
+export PATH
+
+if [ -f ~/.fzf.zsh ]; then
+  source "$HOME/.fzf.zsh"
+fi
+
+if type -a fzf &>/dev/null; then
+  eval "$(fzf --zsh)"
+fi
+
+{{- if eq .chezmoi.os "darwin" }}
+[ -f "/opt/homebrew/bin/brew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -f "/usr/local/bin/brew" ] && eval "$(/usr/local/bin/brew shellenv)"
+{{- else }}
+[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- end }}
+
+[ -f ~/.cargo/env ] && source "$HOME/.cargo/env"
