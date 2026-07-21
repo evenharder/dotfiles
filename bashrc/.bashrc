@@ -7,18 +7,22 @@ esac
 module() { eval $(/usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl "$modules_shell" "$*"); }
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
+if [ $modules_shell = "zsh" ] && [ -f /etc/zshrc ]; then
+  . /etc/zshrc
+elif [ $modules_shell = "bash" ] && [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
 CUR_PATH="$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")"
 TERM=screen-256color
 
-for script in "${CUR_PATH}"/bash/.*; do
-  if [ -f "${script}" ]; then
-    . "${script}"
-  fi
-done
+# for script in "${CUR_PATH}"/bash/.*; do
+#   if [ -f "${script}" ]; then
+#     . "${script}"
+#   fi
+# done
+
+alias ls='ls --color'
 
 export PATH
 

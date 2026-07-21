@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash -e
 
 replace_file() {
   oldfile="$1"
@@ -7,12 +7,12 @@ replace_file() {
   if [ ! -f "${oldfile}" ]; then
     echo "[+] Copy $1 to $2 ..."
     rm -f "${oldfile}"
-    ln --symbolic --relative "${newfile}" "${oldfile}"
+    ln -s "${newfile}" "${oldfile}"
   elif ! diff "${oldfile}" "${newfile}"; then
     echo "[+] Replace $1 to $2 ..."
     mv "${oldfile}" "${tmp_dir}"
     rm -f "${oldfile}"
-    ln --symbolic --relative "${newfile}" "${oldfile}"
+    ln -s "${newfile}" "${oldfile}"
   fi
 }
 
@@ -22,10 +22,10 @@ replace_dir() {
 
   if [ ! -d "${olddir}" ]; then
     echo "[+] Copy $1 with $2 ..."
-    ln --symbolic --relative "${newdir}" "${olddir}"
+    ln -s "${newdir}" "${olddir}"
   elif [ "$(readlink -f "$olddir")" != "$(readlink -f "$newdir")" ]; then
     echo "[-] directory $olddir found, please manually remove the directory and run"
-    echo "    ln --symbolic --relative ${newdir} ${olddir}"
+    echo "    ln -s ${newdir} ${olddir}"
   fi
 }
 
