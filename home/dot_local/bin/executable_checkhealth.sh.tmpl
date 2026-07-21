@@ -26,6 +26,9 @@ REQ_BIN=(brew tmux g++ rustc git python3 clangd make cmake gdb gcc docker luajit
 # tools bootstrapped by run_onchange_install-tools.sh (see .chezmoidata.yaml)
 REQ_BIN+=({{ range .tools }}{{ .bin }} {{ end }})
 
-mapfile -t REQ_LIST <<<"$(printf "%s\n" "${REQ_BIN[@]}" | sort -u)"
+REQ_LIST=()
+while IFS= read -r prog; do
+  REQ_LIST+=("$prog")
+done < <(printf "%s\n" "${REQ_BIN[@]}" | sort -u)
 
 check_install "${REQ_LIST[@]}"
