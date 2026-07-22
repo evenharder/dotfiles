@@ -5,11 +5,11 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_fix", "ruff_format" },
-        rust = { "ast_grep" },
         sh = { "shellcheck", "shfmt" },
         javascript = { "prettierd" },
         cpp = { "clang_format" },
         json = { "prettierd" },
+        rust = { "rust_fix", "ast_grep" },
         ["_"] = { "trim_whitespace" },
       },
       formatters = {},

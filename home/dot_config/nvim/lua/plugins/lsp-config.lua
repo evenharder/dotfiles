@@ -17,18 +17,7 @@ return {
         },
       },
     })
-    vim.lsp.enable("pylsp")
+    vim.lsp.enable("ty")
     vim.lsp.enable("bashls")
-
-    vim.lsp.config("pylsp", {
-      plugins = {
-        autopep8 = { enabled = false },
-        pycodestyle = { enabled = false },
-        yapf = { enabled = false },
-        pyflakes = { enabled = false },
-        mccabe = { enabled = false },
-        ruff = { enabled = true },
-      },
-    })
   end,
 }
