@@ -35,6 +35,14 @@ TERM=screen-256color
 
 alias ls='ls --color'
 
+if [ -d "$HOME/bin" ]; then
+  PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.local/bin" ]; then
+  PATH="$HOME/.local/bin:$PATH"
+fi
+
+# When ZDOTDIR is set (session-only toggle), prepend its bins last so they win.
 if [ -n "${ZDOTDIR:-}" ]; then
   if [ -d "$ZDOTDIR/bin" ]; then
     PATH="$ZDOTDIR/bin:$PATH"
@@ -62,3 +70,7 @@ fi
 {{- end }}
 
 [ -f ~/.cargo/env ] && source "$HOME/.cargo/env"
+
+# Machine-specific config (untracked, listed in .chezmoiignore). Sourced last so
+# it can override anything above.
+[ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ] && source "${ZDOTDIR:-$HOME}/.zshrc.local"
