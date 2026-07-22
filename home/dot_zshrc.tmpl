@@ -1,5 +1,9 @@
 # Keep oh-my-zsh and zinit under ZDOTDIR when set, so a session-only
 # `ZDOTDIR=<live-dir> zsh` toggle never touches the real $HOME.
+export XDG_CONFIG_HOME="${ZDOTDIR:-$HOME}/.config"
+export VIMINIT="source ${ZDOTDIR:-$HOME}/.vimrc"
+alias tmux="tmux -f \"${ZDOTDIR:-$HOME}/.tmux.conf\""
+
 export ZSH="${ZDOTDIR:-$HOME}/.oh-my-zsh"
 if [ ! -d "$ZSH" ]; then
   git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$ZSH"
@@ -30,6 +34,15 @@ zinit light-mode for \
 TERM=screen-256color
 
 alias ls='ls --color'
+
+if [ -n "${ZDOTDIR:-}" ]; then
+  if [ -d "$ZDOTDIR/bin" ]; then
+    PATH="$ZDOTDIR/bin:$PATH"
+  fi
+  if [ -d "$ZDOTDIR/.local/bin" ]; then
+    PATH="$ZDOTDIR/.local/bin:$PATH"
+  fi
+fi
 
 export PATH
 
