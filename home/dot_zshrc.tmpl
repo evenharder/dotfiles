@@ -1,7 +1,10 @@
 # Keep oh-my-zsh and zinit under ZDOTDIR when set, so a session-only
 # `ZDOTDIR=<live-dir> zsh` toggle never touches the real $HOME.
 export XDG_CONFIG_HOME="${ZDOTDIR:-$HOME}/.config"
-export VIMINIT="source ${ZDOTDIR:-$HOME}/.vimrc"
+# Point plain `vim` at the vimrc via an alias, not $VIMINIT: nvim also honors
+# $VIMINIT and would skip ~/.config/nvim/init.lua (LazyVim). No NVIMINIT exists
+# to exempt it, and XDG_CONFIG_HOME above already steers nvim's config dir.
+alias vim="vim -u \"${ZDOTDIR:-$HOME}/.vimrc\""
 alias tmux="tmux -f \"${ZDOTDIR:-$HOME}/.tmux.conf\""
 
 export ZSH="${ZDOTDIR:-$HOME}/.oh-my-zsh"
